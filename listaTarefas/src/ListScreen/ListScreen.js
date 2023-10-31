@@ -6,7 +6,7 @@ function ListScreen({ navigation }) {
         <Text>List Screen</Text>
         <Button
                 title="voltar"
-                onPress={() => navigation.navigate('HomeScreen')}
+                onPress={() => navigation.navigate('Home')}
             />
       </View>
     );
