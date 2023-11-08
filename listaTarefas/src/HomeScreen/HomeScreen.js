@@ -1,34 +1,36 @@
 import { useState } from "react";
-import { Button, Text, View } from "react-native";
+import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 function HomeScreen({ navigation }) {
 
-  let [quantidadeLista, setQuantidadeLista] = useState("0")
+  let [listas, setListas] = useState([])
+  // let [quantidadeLista, setQuantidadeLista] = useState("0")
 
-    const addlist = () => {
-      if (quantidadeLista <= 10) {
-        setQuantidadeLista(quantidadeLista++)
-      } else {
-        alert("Você não pode mais adicionar listas")
-      }
-    }
 
-    const deleteList = () => {
-      if (quantidadeLista >= 0) {
-        setQuantidadeLista(quantidadeLista--)
-      }
-    }
+  // const addlist = () => {
+  //   if (quantidadeLista <= 10) {
+  //     setQuantidadeLista(quantidadeLista++)
+  //   } else {
+  //     alert("Você não pode mais adicionar listas")
+  //   }
+  // }
 
-    return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Aqui estão as suas listas</Text>
+  // const deleteList = () => {
+  //   if (quantidadeLista >= 0) {
+  //     setQuantidadeLista(quantidadeLista--)
+  //   }
+  // }
 
-        <Button
-                title="Adicionar Lista"
-                onPress={() => navigation.navigate('Adicionar Lista')}
-            />
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
 
-            <Button
+      <TouchableOpacity onPress={() => navigation.navigate('Adicionar Lista')}>
+        <Text style={styles.btnTitle}>Adicionar Lista</Text>
+      </TouchableOpacity>
+
+      <Text style={styles.title}>Aqui estão as suas listas</Text>
+
+      {/* <Button
                 title="add list"
                 onPress={addlist}
             />
@@ -36,11 +38,24 @@ function HomeScreen({ navigation }) {
             <Button
                 title="del list"
                 onPress={deleteList}
-            />
+            /> */}
 
-        <Text>Você tem {quantidadeLista}/10</Text>
-      </View>
-    );
-  } 
+      {/* <Text>Você tem {quantidadeLista}/10</Text> */}
+    </View>
+  );
+}
 
-  export default HomeScreen;
+const styles = StyleSheet.create({
+  title: {
+    fontSize: 20,
+  },
+  btnTitle: {
+    color: "#FFF",
+    backgroundColor: "#027148",
+    fontSize: 17,
+    borderRadius: 5,
+    padding: 5,
+  }
+});
+
+export default HomeScreen;
