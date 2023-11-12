@@ -1,46 +1,77 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import List from "../Components/List"
+import {AsyncStorage} from 'react-native';
+import medata from "./../storage.medata.json"
+import { useIsFocused } from "@react-navigation/native";
 
-function HomeScreen({ navigation }) {
+function HomeScreen({ route, navigation }) {
 
+  const focus = useIsFocused();
   let [listas, setListas] = useState([])
-  // let [quantidadeLista, setQuantidadeLista] = useState("0")
 
+  useEffect(() => {
+    getListas();
+  }, [focus]);
 
-  // const addlist = () => {
-  //   if (quantidadeLista <= 10) {
-  //     setQuantidadeLista(quantidadeLista++)
-  //   } else {
-  //     alert("Você não pode mais adicionar listas")
-  //   }
-  // }
+  useEffect(() => {
+    saveListas();
+  }, [listas]);
 
-  // const deleteList = () => {
-  //   if (quantidadeLista >= 0) {
-  //     setQuantidadeLista(quantidadeLista--)
-  //   }
-  // }
+  const saveListas = async () => {
+    const saveListas = listas || "";
+    await AsyncStorage.setItem(medata.LISTAS, JSON.stringify(saveListas));
+  }
+
+  const getListas = async () => {
+
+    const getLista = await AsyncStorage.getItem(medata.LISTAS);
+    if (getLista) {
+      setListas(JSON.parse(getLista));
+    }
+  }
+
+  const goEditarLista = (indexLista) => {
+    console.log(indexLista)
+    navigation.navigate("Adicionar Lista", {
+      acao: "Editar",
+      listas: listas,
+      indexLista: indexLista
+    })
+  }
+
+  const carregarListas = useMemo(() => {
+    return (
+      <View style={{ width: "100%", alignItems: "center", gap: 8 }}>
+        {
+          listas.map((item, index) => {
+            return (
+              <List Titulo={item.titulo} IndexLista={index} key={index} listas={listas} setListas={setListas} goEditarLista={goEditarLista} />
+            )
+          })
+        }
+      </View>
+    )
+  }, [listas]);
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
 
-      <TouchableOpacity onPress={() => navigation.navigate('Adicionar Lista')}>
+      <TouchableOpacity onPress={() => {
+        navigation.navigate('Adicionar Lista', {
+          acao: "Criar",
+          listas: listas
+        })
+      }}>
         <Text style={styles.btnTitle}>Adicionar Lista</Text>
       </TouchableOpacity>
 
       <Text style={styles.title}>Aqui estão as suas listas</Text>
 
-      {/* <Button
-                title="add list"
-                onPress={addlist}
-            />
+      {
+        carregarListas
+      }
 
-            <Button
-                title="del list"
-                onPress={deleteList}
-            /> */}
-
-      {/* <Text>Você tem {quantidadeLista}/10</Text> */}
     </View>
   );
 }

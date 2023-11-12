@@ -1,12 +1,35 @@
 import { useState } from "react";
 import { Button, Text, TextInput, TouchableOpacity, View } from "react-native";
+import {AsyncStorage} from 'react-native';
+import medata from './../storage.medata.json';
 
-function ListScreen({ navigation }) {
+function ListScreen({ route, navigation }) {
 
-  const addTarefa = () => {
-    alert("teste")
-  }
+  const { acao, listas, indexLista } = route.params;
+  const [nomeLista, setNomeLista] = useState("")
 
+  const buttonPressed = () => {
+    if (nomeLista.length == 0) {
+        alert("Nome inválido!")
+        return
+    }
+
+    let novaLista
+        if (acao == "Criar") {
+            novaLista = [{titulo: nomeLista, ultimaMod:(new Date().toLocaleString()), tarefas:[]}, ...listas];
+        }else if(acao == "Editar") {
+            novaLista = listas
+            console.log(indexLista)
+            var lista = novaLista[indexLista]
+            lista.titulo = nomeLista
+            lista.ultimaMod = new Date().toLocaleString()
+        }
+
+        AsyncStorage.setItem(medata.LISTAS, JSON.stringify(novaLista));
+
+        navigation.navigate("Home", {
+        });
+    }
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -16,9 +39,9 @@ function ListScreen({ navigation }) {
         <Text>Voltar</Text>
       </TouchableOpacity>
 
-      <TextInput placeholder="Insira um item aqui" />
+      <TextInput placeholder="Insira um item aqui" onChangeText={setNomeLista} />
       
-      <TouchableOpacity onPress={addTarefa}>
+      <TouchableOpacity onPress={buttonPressed}>
         <Text>Adicionar</Text>
       </TouchableOpacity>
 
