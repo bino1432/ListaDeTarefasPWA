@@ -12,7 +12,7 @@ const List = ({Titulo, listas, setListas, IndexLista, goEditarLista}) => {
 
     return (
         <>
-            <View style={styles.lista}>
+            <View>
                 <Text>{Titulo}</Text>
 
                 <View>

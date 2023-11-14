@@ -83,12 +83,13 @@ function HomeScreen({ route, navigation }) {
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: 20,
+    fontSize: 25,
+    margin: 10
   },
   btnTitle: {
     color: "#FFF",
     backgroundColor: "#027148",
-    fontSize: 17,
+    fontSize: 20,
     borderRadius: 5,
     padding: 5,
   }
