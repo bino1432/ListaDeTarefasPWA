@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import List from "../Components/List"
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import medata from "./../storage.medata.json"
@@ -7,57 +7,51 @@ import { useIsFocused } from "@react-navigation/native";
 
 function HomeScreen({ route, navigation }) {
 
-  const focus = useIsFocused();
-  let [listas, setListas] = useState([])
+  const useIsFocus = useIsFocused();
+  let [lists, setLists] = useState([])
 
   useEffect(() => {
-    getListas();
-  }, [focus]);
+    getLists();
+  }, [useIsFocus]);
 
   useEffect(() => {
     saveListas();
-  }, [listas]);
+  }, [lists]);
 
   const saveListas = async () => {
-    const saveListas = listas || "";
+    const saveListas = lists || "";
     await AsyncStorage.setItem(medata.LISTAS, JSON.stringify(saveListas));
   }
 
-  const getListas = async () => {
-    const getLista = await AsyncStorage.getItem(medata.LISTAS);
-    if (getLista) {
-      setListas(JSON.parse(getLista));
+  const getLists = async () => {
+    const getList = await AsyncStorage.getItem(medata.LISTAS);
+    if (getList) {
+      setLists(JSON.parse(getList));
     }
   }
 
-  const goEditarLista = (indexLista) => {
+  const EditList = (indexLista) => {
     console.log(indexLista)
     navigation.navigate("Adicionar Lista", {
       acao: "Editar",
-      listas: listas,
+      listas: lists,
       indexLista: indexLista
     })
   }
-
-  // const removeLista = (indexLista) => {
-  //   let novaLista = [...listas]
-  //   novaLista.splice(indexLista, 1)
-  //   setListas(novaLista)
-  // }
 
   const carregarListas = useMemo(() => {
     return (
       <View style={{ width: "100%", alignItems: "center", gap: 8 }}>
         {
-          listas.map((item, index) => {
+          lists.map((item, index) => {
             return (
-              <List Titulo={item.titulo} IndexLista={index} key={index} listas={listas} setListas={setListas} goEditarLista={goEditarLista} />
+              <List Titulo={item.titulo} IndexLista={index} key={index} listas={lists} setListas={setLists} EditList={EditList} />
             )
           })
         }
       </View>
     )
-  }, [listas]);
+  }, [lists]);
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -65,7 +59,7 @@ function HomeScreen({ route, navigation }) {
       <TouchableOpacity onPress={() => {
         navigation.navigate('Adicionar Lista', {
           acao: "Criar",
-          listas: listas
+          listas: lists
         })
       }}>
         <Text style={styles.btnTitle}>Adicionar Lista</Text>
