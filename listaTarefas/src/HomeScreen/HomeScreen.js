@@ -39,11 +39,11 @@ function HomeScreen({ route, navigation }) {
     })
   }
 
-  const removeLista = (indexLista) => {
-    let novaLista = [...listas]
-    novaLista.splice(indexLista, 1)
-    setListas(novaLista)
-  }
+  // const removeLista = (indexLista) => {
+  //   let novaLista = [...listas]
+  //   novaLista.splice(indexLista, 1)
+  //   setListas(novaLista)
+  // }
 
   const carregarListas = useMemo(() => {
     return (
