@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import List from "../Components/List"
-import {AsyncStorage} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import medata from "./../storage.medata.json"
 import { useIsFocused } from "@react-navigation/native";
 
@@ -24,7 +24,6 @@ function HomeScreen({ route, navigation }) {
   }
 
   const getListas = async () => {
-
     const getLista = await AsyncStorage.getItem(medata.LISTAS);
     if (getLista) {
       setListas(JSON.parse(getLista));
@@ -38,6 +37,12 @@ function HomeScreen({ route, navigation }) {
       listas: listas,
       indexLista: indexLista
     })
+  }
+
+  const removeLista = (indexLista) => {
+    let novaLista = [...listas]
+    novaLista.splice(indexLista, 1)
+    setListas(novaLista)
   }
 
   const carregarListas = useMemo(() => {

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button, Text, TextInput, TouchableOpacity, View } from "react-native";
-import {AsyncStorage} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import medata from './../storage.medata.json';
 
 function ListScreen({ route, navigation }) {
@@ -9,8 +9,8 @@ function ListScreen({ route, navigation }) {
   const [nomeLista, setNomeLista] = useState("")
 
   const buttonPressed = () => {
-    if (nomeLista.length == 0) {
-        alert("Nome inválido!")
+    if (nomeLista.length <= 3) {
+        alert("Nome muito curto!")
         return
     }
 
