@@ -1,11 +1,11 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 
 
-const List = ({ Titulo, listas, setListas, IndexLista, EditList }) => {
+const List = ({ Titulo, listas, setListas, indexLista, EditList }) => {
 
     const removeLista = () => {
         var novaLista = [...listas];
-        novaLista.splice(IndexLista, 1);
+        novaLista.splice(indexLista, 1);
         setListas(novaLista);
     }
 
@@ -14,7 +14,7 @@ const List = ({ Titulo, listas, setListas, IndexLista, EditList }) => {
             <Text>{Titulo}</Text>
 
             <View style={styles.btns}>
-                <TouchableOpacity style={styles.editBtn} onPress={() => EditList(IndexLista)}>
+                <TouchableOpacity style={styles.editBtn} onPress={() => EditList(indexLista)}>
                     <Text style={styles.btnTitle}>Editar</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.removeBtn} onPress={removeLista} >

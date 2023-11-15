@@ -15,12 +15,12 @@ function HomeScreen({ route, navigation }) {
   }, [useIsFocus]);
 
   useEffect(() => {
-    saveListas();
+    saveLists();
   }, [lists]);
 
-  const saveListas = async () => {
-    const saveListas = lists || "";
-    await AsyncStorage.setItem(medata.LISTAS, JSON.stringify(saveListas));
+  const saveLists = async () => {
+    const saveLists = lists || "";
+    await AsyncStorage.setItem(medata.LISTAS, JSON.stringify(saveLists));
   }
 
   const getLists = async () => {
@@ -31,7 +31,6 @@ function HomeScreen({ route, navigation }) {
   }
 
   const EditList = (indexLista) => {
-    console.log(indexLista)
     navigation.navigate("Adicionar Lista", {
       acao: "Editar",
       listas: lists,
@@ -39,13 +38,17 @@ function HomeScreen({ route, navigation }) {
     })
   }
 
+
+
   const carregarListas = useMemo(() => {
     return (
       <View style={{ width: "100%", alignItems: "center", gap: 8 }}>
         {
           lists.map((item, index) => {
             return (
-              <List Titulo={item.titulo} IndexLista={index} key={index} listas={lists} setListas={setLists} EditList={EditList} />
+              <TouchableOpacity onPress={() => {navigation.navigate('Tarefas')}} key={index}>
+                <List Titulo={item.titulo} indexLista={index} key={index} listas={lists} setListas={setLists} EditList={EditList} />
+               </TouchableOpacity>
             )
           })
         }
@@ -65,7 +68,7 @@ function HomeScreen({ route, navigation }) {
         <Text style={styles.btnTitle}>Adicionar Lista</Text>
       </TouchableOpacity>
 
-      <Text style={styles.title}>Aqui estão as suas listas</Text>
+      <Text style={styles.title}>Aqui estão as suas listas:</Text>
 
       {
         carregarListas
