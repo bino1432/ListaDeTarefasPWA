@@ -5,7 +5,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './src/HomeScreen';
 import ListScreen from './src/ListScreen';
 import TaskScreen from './src/TaskScreen';
-import ListCompontent from './src/Components/List';
 import EditTaskScreen from './src/EditTaskScreen'
 
 const Stack = createNativeStackNavigator();
@@ -17,7 +16,6 @@ export default function App() {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Adicionar Lista" component={ListScreen} />
         <Stack.Screen name="Tarefas" component={TaskScreen} />
-        <Stack.Screen name="ListCompontent" component={ListCompontent} />
         <Stack.Screen name="EditTaskScreen" component={EditTaskScreen} />
       </Stack.Navigator>
     </NavigationContainer>

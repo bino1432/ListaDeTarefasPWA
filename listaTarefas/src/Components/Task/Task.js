@@ -1,12 +1,12 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 
 
-const List = ({ Titulo, listas, setListas, indexLista, EditList }) => {
+const Task = ({ Titulo, tasks, setTasks, indexTask, EditTasks }) => {
 
-    const removeLista = () => {
-        var novaLista = [...listas];
-        novaLista.splice(indexLista, 1);
-        setListas(novaLista);
+    const removeTask = () => {
+        var novaTask = [...tasks];
+        novaTask.splice(indexTask, 1);
+        setTasks(novaLista);
     }
 
     return (
@@ -14,10 +14,10 @@ const List = ({ Titulo, listas, setListas, indexLista, EditList }) => {
             <Text>{Titulo}</Text>
 
             <View style={styles.btns}>
-                <TouchableOpacity style={styles.editBtn} onPress={() => EditList(indexLista)}>
+                <TouchableOpacity style={styles.editBtn} onPress={() => EditTasks(indexTask)}>
                     <Text style={styles.btnTitle}>Editar</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.removeBtn} onPress={removeLista} >
+                <TouchableOpacity style={styles.removeBtn} onPress={removeTask} >
                     <Text style={styles.btnTitle}>Excluir</Text>
                 </TouchableOpacity>
             </View>
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
         minHeight: 50,
         maxWidth: 50,
         maxHeight: 50,
-        borderColor: "#217735",
+        borderColor: "#092FBA",
         borderWidth: 2,
         borderRadius: 14
     },
@@ -71,4 +71,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default List;
+export default Task;
