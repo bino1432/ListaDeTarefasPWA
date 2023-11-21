@@ -27,7 +27,7 @@ function EditTaskScreen({ route, navigation }) {
 
         AsyncStorage.setItem(medata.TAREFAS, JSON.stringify(novaTask));
 
-        navigation.navigate("Home", {
+        navigation.navigate("Tarefas", {
         });
     }
 
