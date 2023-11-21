@@ -8,7 +8,7 @@ function ListScreen({ route, navigation }) {
   const { acao, listas, indexLista } = route.params;
   const [nomeLista, setNomeLista] = useState("")
 
-  const buttonPressed = () => {
+  const addList = () => {
     if (nomeLista.length <= 3) {
         alert("Nome muito curto!")
         return
@@ -41,7 +41,7 @@ function ListScreen({ route, navigation }) {
 
       <TextInput style={styles.input} placeholder="Insira um item aqui" onChangeText={setNomeLista} />
       
-      <TouchableOpacity onPress={buttonPressed}>
+      <TouchableOpacity onPress={addList}>
         <Text style={styles.btnTitle} >Adicionar</Text>
       </TouchableOpacity>
 
